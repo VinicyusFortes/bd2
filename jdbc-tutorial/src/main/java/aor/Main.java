@@ -24,11 +24,8 @@ public class Main {
         case "1":
 
           String titulo = perguntador.perguntaTitulo(scanner);
-
           Date data = perguntador.perguntaData(scanner);
-
           String genero = perguntador.perguntaGenero(scanner);
-
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
           System.out.println(inserirAlbum);
 
@@ -47,6 +44,14 @@ public class Main {
           System.out.println("alterar titulo");
           break;
         case "3":
+          try {
+            System.out.print("\nInforme o id da música: ");
+            String ids = scanner.nextLine();
+            int id = Integer.parseInt(ids);
+            app.apagarMusica(id);
+          } catch(Exception e) {
+            System.out.println("[Erro]" + e.getMessage());
+          }
           System.out.println("apagar musica");
           break;
         case "4":
