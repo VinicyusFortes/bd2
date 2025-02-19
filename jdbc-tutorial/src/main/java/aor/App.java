@@ -3,13 +3,10 @@ package aor;
 import java.sql.*;
 
 public class App implements AutoCloseable {
-<<<<<<< HEAD
-  private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
-=======
   //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
   //private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
   private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
->>>>>>> 0e3b7a2e9a90953ea282a661d4cdf04ee61d0c7a
+
   private final static String USER = "postgres";
   private final static String PASSWORD = "postgres";
   private Connection conn;
