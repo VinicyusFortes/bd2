@@ -11,7 +11,7 @@ public class App implements AutoCloseable {
   public App() throws SQLException {
     this.conn = DriverManager.getConnection(App.URL, App.USER, App.PASSWORD);
   }
-
+//todo: RETIRAR
   private void queryEmployees() throws SQLException {
     String sql = "SELECT * FROM emp WHERE ndep = ? or ndep= ?";
     try (PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -45,12 +45,25 @@ public class App implements AutoCloseable {
     }
   }
 
-  //2 - APAGAR MUSICA
+  public boolean procuraAutor(){
+    String query = "select autor from ";
+    return true;
+  }
+
+  public void criarAutor()  {
+
+  }
+
+  //2 - CORRIGIR TITULO DE UMA MUSICA
+  public void alterarTitulo(int id) {
+    System.out.println("CORRIGIR TITULO DE MUSICA");
+  }
+
+  //3 - APAGAR MUSICA
   public void apagarMusica(int id) throws SQLException{
     String queryTitulo = "select titulo_musica from musica where id = ?";
     String queryDelete = "Delete from musica where id = ?";
     String nomeMusica = "";
-
 
     try (PreparedStatement stmTitulo = conn.prepareStatement(queryTitulo)) {
       stmTitulo.setInt(1, id);
@@ -77,20 +90,24 @@ public class App implements AutoCloseable {
     }
   }
 
+  //4 - VER PLAYLIST
+  public void verPlaylist() {
+    System.out.println("VER PLAYLIST");
+  }
 
-  //3 - CONSULTAR MUSICAS REGISTADAS
+
+  //5 - CONSULTAR MUSICAS REGISTADAS
   public void consultaMusica() throws SQLException {
     String query = "SELECT * FROM musica";
     try (PreparedStatement stm = conn.prepareStatement(query)) {
       try (ResultSet rs1 = stm.executeQuery()) {
         System.out.print("\nAs músicas atualmente registadas são: ");
-        System.out.print("\nTÍTULO - DATA - GENERO MUSICAL\n");
+        System.out.print("\nID - TÍTULO - DATA - GENERO MUSICAL\n");
         while (rs1.next()) {
-                  /*  System.out.println("Nome: " + rs1.getString("nome") + " Dep:"
-                            + rs1.getString("ndep"));*/
-
-          System.out.println("ID: " + rs1.getString("id") + " | Titulo: "
-                  + rs1.getString("titulo_musica") + " | Data: " + rs1.getString("data_criacao") + " | Genero: " + rs1.getString("genero"));
+          System.out.println("ID: " + rs1.getString("id")
+                  + " | Titulo: " + rs1.getString("titulo_musica")
+                  + " | Data: " + rs1.getString("data_criacao")
+                  + " | Genero: " + rs1.getString("genero"));
         }
       }
     }

@@ -41,7 +41,7 @@ public class Main {
           }
           break;
         case "2":
-          System.out.println("alterar titulo");
+          app.alterarTitulo(2);
           break;
         case "3":
           try {
@@ -55,7 +55,7 @@ public class Main {
           System.out.println("apagar musica");
           break;
         case "4":
-          System.out.println("ver playlist");
+          app.verPlaylist();
           break;
         case "5":
           try {
