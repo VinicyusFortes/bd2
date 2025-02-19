@@ -22,7 +22,6 @@ public class Main {
 
       switch(escolha) {
         case "1":
-
           String titulo = perguntador.perguntaTitulo(scanner);
           Date data = perguntador.perguntaData(scanner);
           String genero = perguntador.perguntaGenero(scanner);

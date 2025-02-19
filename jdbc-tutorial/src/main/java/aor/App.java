@@ -15,6 +15,7 @@ public class App implements AutoCloseable {
     this.conn = DriverManager.getConnection(App.URL, App.USER, App.PASSWORD);
   }
 
+  //todo: falta implementar a lógica de insercao do album
   //1 - INSERIR MUSICA
   public void inserirMusica(String tituloMusica, Date dataCriacao, String autor, String genero) throws SQLException{
     String query = "insert into musica (titulo_musica, data_criacao, titulo_genero, nome_autor) values (?, ?, ?, ?)";
@@ -22,8 +23,8 @@ public class App implements AutoCloseable {
     try (PreparedStatement stm = conn.prepareStatement(query)){
       stm.setString(1, tituloMusica);
       stm.setDate(2, dataCriacao);
-      stm.setString(3, autor);
-      stm.setString(4, genero);
+      stm.setString(4, autor);
+      stm.setString(3, genero);
 
       int rowsAffected = stm.executeUpdate();
       if (rowsAffected > 0) {
@@ -102,7 +103,8 @@ public class App implements AutoCloseable {
     System.out.println("VER PLAYLIST");
   }
 
-
+  //todo: falta implementar a lógica de exibicao do album
+  //todo: em musicas que nao estiverem num album devemos usar o coalesce para trocar de null para outra coisa
   //5 - CONSULTAR MUSICAS REGISTADAS
   public void consultaMusica() throws SQLException {
     String query = "SELECT * FROM musica";
@@ -111,10 +113,11 @@ public class App implements AutoCloseable {
         System.out.print("\nAs músicas atualmente registadas são: ");
         System.out.print("\nID - TÍTULO - DATA - GENERO MUSICAL\n");
         while (rs1.next()) {
-          System.out.println("ID: " + rs1.getString("id")
-                  + " | Titulo: " + rs1.getString("titulo_musica")
-                  + " | Data: " + rs1.getString("data_criacao")
-                  + " | Genero: " + rs1.getString("genero"));
+          System.out.println("ID: " + rs1.getString("id") +
+                   " | Titulo: " + rs1.getString("titulo_musica") +
+                   " | Data: " + rs1.getString("data_criacao") +
+                   " | Genero: " + rs1.getString("titulo_genero") +
+                   " | Autor: " + rs1.getString("nome_autor"));
         }
       }
     }
