@@ -63,7 +63,7 @@ public class Perguntador {
   public String perguntaInserirAlbum(Scanner scanner) {
     System.out.print("\nDeseja inserir a música num álbum?");
     String resposta = perguntaSimNao(scanner);
-    System.out.print("\nResposta: ");
+//    System.out.print("\nResposta: ");
 
     return resposta;
   }

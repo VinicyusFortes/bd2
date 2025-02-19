@@ -3,7 +3,7 @@ package aor;
 import java.sql.*;
 
 public class App implements AutoCloseable {
-  private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
+  private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
   private final static String USER = "postgres";
   private final static String PASSWORD = "postgres";
   private Connection conn;
@@ -28,13 +28,12 @@ public class App implements AutoCloseable {
 
 
   //1 - INSERIR MUSICA
-  public void inserirMusica(String tituloMusica, Date dataCriacao, String genero) throws SQLException{
-    String query = "insert into musica (titulo_musica, data_criacao, genero) values (?, ?, ?)";
+  public void inserirMusica(String tituloMusica, Date dataCriacao) throws SQLException{
+    String query = "insert into musica (titulo_musica, data_criacao) values (?, ?)";
 
     try (PreparedStatement stm = conn.prepareStatement(query)){
       stm.setString(1, tituloMusica);
       stm.setDate(2, dataCriacao);
-      stm.setString(3, genero);
 
       int rowsAffected = stm.executeUpdate();
       if (rowsAffected > 0) {
