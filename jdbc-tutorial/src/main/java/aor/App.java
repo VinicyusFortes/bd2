@@ -3,6 +3,8 @@ package aor;
 import java.sql.*;
 
 public class App implements AutoCloseable {
+  //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
+  //private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
   private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
   private final static String USER = "postgres";
   private final static String PASSWORD = "postgres";
@@ -45,13 +47,31 @@ public class App implements AutoCloseable {
     }
   }
 
-  public boolean procuraAutor(){
-    String query = "select autor from ";
-    return true;
+  //retorna true caso o autor já exista
+  public boolean procuraAutor(String autor){
+    String queryAutor = "select nome_autor from autor where nome_autor = ?";
+
+    try(PreparedStatement stmAutor = conn.prepareStatement(queryAutor)) {
+      stmAutor.setString(1, autor);
+      try (ResultSet rs = stmAutor.executeQuery()) {
+        return rs.next();
+      }
+    } catch(Exception e) {
+      System.out.println("Erro: " + e.getMessage());
+    }
+    return false;
   }
 
-  public void criarAutor()  {
+  public void criarAutor(String autor)  {
+    String queryCriarAutor = "insert into autor (nome_autor) values(?)";
 
+    try (PreparedStatement stmCriarAutor = conn.prepareStatement(queryCriarAutor)) {
+      stmCriarAutor.setString(1, autor);
+      stmCriarAutor.executeUpdate();
+      System.out.println("\nAutor: " + autor + " foi criado");
+    } catch(Exception e) {
+      System.out.println("Erro: " + e.getMessage());
+    }
   }
 
   //2 - CORRIGIR TITULO DE UMA MUSICA

@@ -67,4 +67,9 @@ public class Perguntador {
 
     return resposta;
   }
+
+  public String perguntaAutor(Scanner scanner) {
+    System.out.print("\nInforme o nome do autor: ");
+    return scanner.nextLine().trim().toLowerCase();
+  }
 }
