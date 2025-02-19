@@ -27,12 +27,17 @@ public class Main {
           Date data = perguntador.perguntaData(scanner);
           String genero = perguntador.perguntaGenero(scanner);
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-          System.out.println(inserirAlbum);
+          String autor = perguntador.perguntaAutor(scanner);
 
           //todo inserir logica de adicionar a musica a um album
           /*if(inserirAlbum.equalsIgnoreCase("sim")) {
 
           }*/
+
+          if(!app.procuraAutor(autor)) {
+            System.out.print("\nO autor nao existe. Será criado");
+            app.criarAutor(autor);
+          }
 
           try {
             app.inserirMusica(titulo, data);
