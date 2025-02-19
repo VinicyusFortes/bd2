@@ -14,21 +14,6 @@ public class App implements AutoCloseable {
   public App() throws SQLException {
     this.conn = DriverManager.getConnection(App.URL, App.USER, App.PASSWORD);
   }
-//todo: RETIRAR
-  private void queryEmployees() throws SQLException {
-    String sql = "SELECT * FROM emp WHERE ndep = ? or ndep= ?";
-    try (PreparedStatement stm = conn.prepareStatement(sql)) {
-      stm.setInt(1, 10);
-      stm.setInt(2, 20);
-      try (ResultSet rs1 = stm.executeQuery()) {
-        while (rs1.next()) {
-          System.out.println("Nome: " + rs1.getString("nome") + " Dep:"
-                  + rs1.getString("ndep"));
-        }
-      }
-    }
-  }
-
 
   //1 - INSERIR MUSICA
   public void inserirMusica(String tituloMusica, Date dataCriacao) throws SQLException{
