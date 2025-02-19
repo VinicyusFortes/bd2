@@ -1,5 +1,6 @@
 package aor;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.sql.Date;
 
@@ -7,7 +8,7 @@ import java.sql.Date;
 public class Main {
   private final Perguntador perguntador = new Perguntador();
 
-  public void menu(App app, Scanner scanner) {
+  public void menu(App app, Scanner scanner) throws SQLException {
     boolean continuar = true;
     while(continuar) {
       System.out.print("\nEscolha uma das opcoes: ");
@@ -46,7 +47,13 @@ public class Main {
           }
           break;
         case "2":
-          app.alterarTitulo(2);
+          System.out.println("CORRIGIR TITULO DE MUSICA");
+          app.consultaMusica();
+
+          String musicaId = perguntador.perguntaIdMusica(scanner);
+          int musicaTemp = Integer.parseInt(musicaId);
+          app.alterarTitulo(musicaTemp);
+
           break;
         case "3":
           try {
