@@ -64,7 +64,7 @@ public class App implements AutoCloseable {
 
   //2 - CORRIGIR TITULO DE UMA MUSICA
   public void alterarTitulo(int id) throws SQLException {
-
+// TODO Terminar código deste método
 
   }
 
