@@ -16,12 +16,14 @@ public class App implements AutoCloseable {
   }
 
   //1 - INSERIR MUSICA
-  public void inserirMusica(String tituloMusica, Date dataCriacao) throws SQLException{
-    String query = "insert into musica (titulo_musica, data_criacao) values (?, ?)";
+  public void inserirMusica(String tituloMusica, Date dataCriacao, String autor, String genero) throws SQLException{
+    String query = "insert into musica (titulo_musica, data_criacao, titulo_genero, nome_autor) values (?, ?, ?, ?)";
 
     try (PreparedStatement stm = conn.prepareStatement(query)){
       stm.setString(1, tituloMusica);
       stm.setDate(2, dataCriacao);
+      stm.setString(3, autor);
+      stm.setString(4, genero);
 
       int rowsAffected = stm.executeUpdate();
       if (rowsAffected > 0) {

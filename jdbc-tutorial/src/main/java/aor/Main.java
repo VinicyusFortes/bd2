@@ -40,7 +40,7 @@ public class Main {
           }
 
           try {
-            app.inserirMusica(titulo, data);
+            app.inserirMusica(titulo, data, autor, genero);
           } catch(Exception e){
             System.out.println("[Erro]" + e.getMessage());
           }
