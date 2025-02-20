@@ -130,18 +130,4 @@ public class App implements AutoCloseable {
       this.conn.close();
     }
   }
-
-  public static void main(String[] args) {
-    Main m = new Main();
-
-    try (App app = new App()) {
-      //app.queryEmployees();
-      //app.consultaMusica();
-
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
 }
