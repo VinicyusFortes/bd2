@@ -50,6 +50,7 @@ public class App implements AutoCloseable {
     return false;
   }
 
+  //cria um autor na tabela de autor
   public void criarAutor(String autor)  {
     String queryCriarAutor = "insert into autor (nome_autor) values(?)";
 

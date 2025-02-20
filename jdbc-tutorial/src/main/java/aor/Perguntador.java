@@ -68,7 +68,7 @@ public class Perguntador {
         continuar = true;
       }
     }
-    return scanner.nextLine().trim();
+    return simNao;
   }
 
   public String perguntaInserirAlbum(Scanner scanner) {
