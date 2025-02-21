@@ -24,7 +24,15 @@ public class Menu {
         case "1":
           String titulo = perguntador.perguntaTitulo(scanner);
           Date data = perguntador.perguntaData(scanner);
-          String genero = perguntador.perguntaGenero(scanner);
+          String genero ="N/A";
+
+          // Pergunta se quer inserir género na música
+          boolean opcaoGenero = perguntador.perguntaGeneroInserir(scanner);
+
+          if (opcaoGenero){       // Se escolher inserir género
+          genero = perguntador.perguntaGenero(scanner);
+          } // Senão, continua pra baixo
+
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
           String autor = perguntador.perguntaAutor(scanner);
 

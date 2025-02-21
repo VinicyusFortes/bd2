@@ -102,4 +102,17 @@ public class Perguntador {
 
     return titulo;
   }
+
+  public boolean perguntaGeneroInserir(Scanner scanner) {
+
+        System.out.println("Deseja adicionar um género à música ?");
+        String opcao = perguntaSimNao(scanner);
+
+    if (validador.validarSimNao(opcao)) {
+      return true;
+  } else {
+      return false;
+    }
+
+  }
 }
