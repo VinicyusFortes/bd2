@@ -24,43 +24,50 @@ public class Menu {
         case "1":
           String titulo = perguntador.perguntaTitulo(scanner);
           Date data = perguntador.perguntaData(scanner);
-          String genero ="N/A";
+          String genero = "N/A";
 
-          // Pergunta se quer inserir género na música
+          // Pergunta se quer inserir gênero na música
           boolean opcaoGenero = perguntador.perguntaGeneroInserir(scanner);
+          if (opcaoGenero) { // Se escolher inserir gênero
+            genero = perguntador.perguntaGenero(scanner);
+          }
 
-          if (opcaoGenero){       // Se escolher inserir género
-          genero = perguntador.perguntaGenero(scanner);
-          } // Senão, continua pra baixo
-
-
-          //todo inserir album
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-          System.out.println(inserirAlbum);
+          String nomeAlbum = "";
+          long posicaoAlbum = -1; // Inicializa a posição como -1 para verificação posterior
 
-          //todo inserir logica de adicionar a musica a um album
-          if(inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
-            String nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
+          if (inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
+            nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
 
-            //todo: se o album nao existir deverá ser criado
-
-            System.out.println("\nInforme a posicao desta música no album: ");
-            String posicaoAlbum = scanner.nextLine();
-
-            System.out.println(posicaoAlbum);
+            // Caso o álbum não exista, é criado
+            if (!app.procuraAlbum(nomeAlbum)) {
+              app.criarAlbum(nomeAlbum);
+            }
+            posicaoAlbum = perguntador.posicaoAlbum(scanner); // Captura a posição do álbum
           }
 
           String autor = perguntador.perguntaAutor(scanner);
 
-          if(!app.procuraAutor(autor)) {
-            System.out.print("\nO autor nao existe. Será criado");
+          if (!app.procuraAutor(autor)) {
+            System.out.print("\nO autor não existe. Será criado");
             app.criarAutor(autor);
           }
 
           try {
-            app.inserirMusica(titulo, data, autor, genero);
-          } catch(Exception e){
-            System.out.println("[Erro]" + e.getMessage());
+            // Insere a música e captura o ID da música inserida
+             app.inserirMusica(titulo, data, autor, genero);
+
+            long musicaId = app.obterUltimoIdMusica(); // Busca o último ID inserido
+            if (musicaId != -1) {
+              if (inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
+                long albumId = app.procuraAlbumId(nomeAlbum);
+                app.inserirMusicaAlbum(musicaId, albumId, posicaoAlbum);
+              }
+            } else {
+              System.out.println("Não foi possível obter o ID da música.");
+            }
+          } catch (Exception e) {
+            System.out.println("[Erro] " + e.getMessage());
           }
           break;
         case "2":
