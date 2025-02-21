@@ -81,4 +81,9 @@ public class Perguntador {
     System.out.print("\nInforme o nome do autor: ");
     return scanner.nextLine().trim().toLowerCase();
   }
+
+  public String perguntaIdMusica(Scanner scanner){
+    System.out.println("\nInforme o id da música: ");
+    return scanner.nextLine().trim().toLowerCase();
+  }
 }

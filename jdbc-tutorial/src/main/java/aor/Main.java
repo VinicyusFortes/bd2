@@ -1,5 +1,4 @@
 package aor;
-
 import java.util.Scanner;
 
 public class Main {
