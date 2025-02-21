@@ -53,11 +53,10 @@ public class Perguntador {
     return data; // Retorna a data como java.sql.Date
   }
 
-
   //genero musica
   public String perguntaGenero(Scanner scanner) {
     System.out.print("\nOs generos disponíveis sao:");
-    System.out.print("\n1 - Clássico");
+    System.out.print("\n1 - Clássica");
     System.out.print("\n2 - Pop");
     System.out.print("\n3 - Rock");
     System.out.print("\n4 - Hip-hop");
@@ -68,7 +67,7 @@ public class Perguntador {
     String genero = "";
 
     switch(g) {
-      case "1": genero = "Clássico"; break;
+      case "1": genero = "Clássica"; break;
       case "2": genero = "Pop"; break;
       case "3": genero = "Rock"; break;
       case "4": genero = "Hip-hop"; break;
@@ -144,5 +143,15 @@ public class Perguntador {
   } else System.out.println("Resposta inválida. Por favor, responda 'sim' ou 'não'.");
     return perguntaGeneroInserir(scanner);
     }
+
+  public Long posicaoAlbum(Scanner scanner) {
+
+    System.out.print("\nInforme a posicao da música no álbum: ");
+    String posicao = scanner.nextLine();
+
+    Long resposta = Long.parseLong(posicao);
+
+    return resposta;
+  }
 
   }
