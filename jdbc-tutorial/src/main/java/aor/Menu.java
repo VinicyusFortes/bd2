@@ -22,57 +22,14 @@ public class Menu {
 
       switch(escolha) {
         case "1":
-          /*String titulo = perguntador.perguntaTitulo(scanner);
-          Date data = perguntador.perguntaData(scanner);
-          String genero ="N/A";
-
-          // Pergunta se quer inserir género na música
-          boolean opcaoGenero = perguntador.perguntaGeneroInserir(scanner);
-
-          if (opcaoGenero){       // Se escolher inserir género
-          genero = perguntador.perguntaGenero(scanner);
-          } // Senão, continua pra baixo
-
-          String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-          String nomeAlbum = " ";
-          if(inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
-            nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
-
-            //caso o album nao exista é criado
-            if(!app.procuraAlbum(nomeAlbum)) {
-              app.criarAlbum(nomeAlbum);
-            }
-            String posicaoAlbum = perguntador.posicaoAlbum(scanner);
-
-            //insercao na tabela album
-          }
-
-          String autor = perguntador.perguntaAutor(scanner);
-
-          if(!app.procuraAutor(autor)) {
-            System.out.print("\nO autor nao existe. Será criado");
-            app.criarAutor(autor);
-          }
-
-          try {
-            app.inserirMusica(titulo, data, autor, genero);
-          } catch(Exception e){
-            System.out.println("[Erro]" + e.getMessage());
-          }*/
-
           String titulo = perguntador.perguntaTitulo(scanner);
           Date data = perguntador.perguntaData(scanner);
           String genero = "N/A";
 
-// Pergunta se quer inserir gênero na música
+          // Pergunta se quer inserir gênero na música
           boolean opcaoGenero = perguntador.perguntaGeneroInserir(scanner);
           if (opcaoGenero) { // Se escolher inserir gênero
             genero = perguntador.perguntaGenero(scanner);
-
-            /*// Verifica se o gênero existe, se não, insere
-            if (!app.procuraGenero(genero)) {
-              app.criarGenero(genero); // Método para inserir o gênero na tabela
-            }*/
           }
 
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);

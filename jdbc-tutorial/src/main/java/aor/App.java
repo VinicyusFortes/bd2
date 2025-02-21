@@ -1,7 +1,5 @@
 package aor;
 
-import com.sun.tools.jconsole.JConsoleContext;
-
 import java.sql.*;
 
 public class App implements AutoCloseable {
@@ -17,7 +15,6 @@ public class App implements AutoCloseable {
     this.conn = DriverManager.getConnection(App.URL, App.USER, App.PASSWORD);
   }
 
-  //todo: falta implementar a lógica de insercao do album
   //1 - INSERIR MUSICA
   public void inserirMusica(String tituloMusica, Date dataCriacao, String autor, String genero) throws SQLException {
     String query = "insert into musica (titulo_musica, data_criacao, genero_titulo_genero, autor_nome_autor) values (?, ?, ?, ?)";
@@ -202,25 +199,7 @@ public class App implements AutoCloseable {
 
 
   //5 - CONSULTAR MUSICAS REGISTADAS
-  /*public void consultaMusica() throws SQLException {
-    String query = "select * from musica order by id ASC";
-    try (PreparedStatement stm = conn.prepareStatement(query)) {
-      try (ResultSet rs1 = stm.executeQuery()) {
-        System.out.print("\nAs músicas atualmente registadas são: ");
-        System.out.print("\nID - TÍTULO - DATA - GENERO MUSICAL - AUTOR\n");
-        while (rs1.next()) {
-          System.out.println("ID: " + rs1.getString("id") +
-                  " | Titulo: " + rs1.getString("titulo_musica") +
-                  " | Data: " + rs1.getString("data_criacao") +
-                  " | Genero: " + rs1.getString("titulo_genero") +
-                  " | Autor: " + rs1.getString("nome_autor"));
-        }
-      }
-    }
-  }*/
-
   public void consultaMusica() throws SQLException {
-    // Sua nova query com JOINs
     String query = "SELECT " +
             "m.id AS id_musica, " +
             "m.titulo_musica, " +
