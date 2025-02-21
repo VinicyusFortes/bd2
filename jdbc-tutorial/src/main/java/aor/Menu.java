@@ -33,13 +33,24 @@ public class Menu {
           genero = perguntador.perguntaGenero(scanner);
           } // Senão, continua pra baixo
 
+
+          //todo inserir album
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-          String autor = perguntador.perguntaAutor(scanner);
+          System.out.println(inserirAlbum);
 
           //todo inserir logica de adicionar a musica a um album
-          if(inserirAlbum.equalsIgnoreCase("sim")) {
-            System.out.println("inserir album");
+          if(inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
+            String nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
+
+            //todo: se o album nao existir deverá ser criado
+
+            System.out.println("\nInforme a posicao desta música no album: ");
+            String posicaoAlbum = scanner.nextLine();
+
+            System.out.println(posicaoAlbum);
           }
+
+          String autor = perguntador.perguntaAutor(scanner);
 
           if(!app.procuraAutor(autor)) {
             System.out.print("\nO autor nao existe. Será criado");
