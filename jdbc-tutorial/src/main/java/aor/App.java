@@ -107,7 +107,6 @@ public class App implements AutoCloseable {
     return -1; // Retorna -1 se não houver músicas
   }
 
-
   public void inserirMusicaAlbum(long musicaId, long albumId, long posicaoAlbum) {
     String queryInserirMusicaAlbum = "INSERT INTO musica_album (musica_id, album_id, posicao_album) VALUES (?, ?, ?)";
 
@@ -141,7 +140,6 @@ public class App implements AutoCloseable {
 
     return albumId;
   }
-
 
 
   //2 - CORRIGIR TITULO DE UMA MUSICA
@@ -202,8 +200,7 @@ public class App implements AutoCloseable {
     System.out.println("VER PLAYLIST");
   }
 
-  //todo: falta implementar a lógica de exibicao do album
-  //todo: em musicas que nao estiverem num album devemos usar o coalesce para trocar de null para outra coisa
+
   //5 - CONSULTAR MUSICAS REGISTADAS
   /*public void consultaMusica() throws SQLException {
     String query = "select * from musica order by id ASC";
@@ -237,7 +234,7 @@ public class App implements AutoCloseable {
             "LEFT JOIN genero g ON m.genero_titulo_genero = g.titulo_genero " +
             "LEFT JOIN musica_album ma ON m.id = ma.musica_id " +
             "LEFT JOIN album alb ON ma.album_id = alb.id " +
-            "ORDER BY a.nome_autor ASC;";
+            "ORDER BY id_musica ASC;";
 
     try (PreparedStatement stm = conn.prepareStatement(query)) {
       try (ResultSet rs1 = stm.executeQuery()) {

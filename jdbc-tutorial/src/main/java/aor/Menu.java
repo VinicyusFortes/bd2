@@ -112,8 +112,6 @@ public class Menu {
           } catch (Exception e) {
             System.out.println("[Erro] " + e.getMessage());
           }
-
-
           break;
         case "2":
           try {
