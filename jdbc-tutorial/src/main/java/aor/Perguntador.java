@@ -86,4 +86,20 @@ public class Perguntador {
     System.out.println("\nInforme o id da música: ");
     return scanner.nextLine().trim().toLowerCase();
   }
+
+  public String perguntaTituloAlbum(Scanner scanner) {
+    boolean continuar = false;
+    String titulo = "";
+    System.out.print("\nInforme o título do álbum: ");
+    while(!continuar) {
+      titulo = scanner.nextLine().trim();
+      if(!validador.validarTituloMusica(titulo)) {
+        System.out.print("\n\tParametro errado. Informe novamente: ");
+      }else {
+        continuar = true;
+      }
+    }
+
+    return titulo;
+  }
 }

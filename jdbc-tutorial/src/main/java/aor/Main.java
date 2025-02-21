@@ -30,9 +30,9 @@ public class Main {
           String autor = perguntador.perguntaAutor(scanner);
 
           //todo inserir logica de adicionar a musica a um album
-          /*if(inserirAlbum.equalsIgnoreCase("sim")) {
+          if(inserirAlbum.equalsIgnoreCase("sim")) {
 
-          }*/
+          }
 
           if(!app.procuraAutor(autor)) {
             System.out.print("\nO autor nao existe. Será criado");
@@ -51,7 +51,8 @@ public class Main {
 
           String musicaId = perguntador.perguntaIdMusica(scanner);
           int musicaTemp = Integer.parseInt(musicaId);
-          app.alterarTitulo(musicaTemp);
+          String tituloNovo = perguntador.perguntaTitulo(scanner);
+          app.alterarTitulo(musicaTemp,tituloNovo);
 
           break;
         case "3":
