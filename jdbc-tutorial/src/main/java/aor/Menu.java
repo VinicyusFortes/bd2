@@ -22,7 +22,7 @@ public class Menu {
 
       switch(escolha) {
         case "1":
-          String titulo = perguntador.perguntaTitulo(scanner);
+          /*String titulo = perguntador.perguntaTitulo(scanner);
           Date data = perguntador.perguntaData(scanner);
           String genero ="N/A";
 
@@ -33,26 +33,18 @@ public class Menu {
           genero = perguntador.perguntaGenero(scanner);
           } // Senão, continua pra baixo
 
-
-          //todo inserir album
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-
-          //todo inserir logica de adicionar a musica a um album
+          String nomeAlbum = " ";
           if(inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
-            String nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
+            nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
 
-            //verifica se o album já existe
-
+            //caso o album nao exista é criado
             if(!app.procuraAlbum(nomeAlbum)) {
               app.criarAlbum(nomeAlbum);
             }
+            String posicaoAlbum = perguntador.posicaoAlbum(scanner);
 
-            //todo: se o album nao existir deverá ser criado
-
-            System.out.println("\nInforme a posicao desta música no album: ");
-            String posicaoAlbum = scanner.nextLine();
-
-            System.out.println(posicaoAlbum);
+            //insercao na tabela album
           }
 
           String autor = perguntador.perguntaAutor(scanner);
@@ -66,7 +58,62 @@ public class Menu {
             app.inserirMusica(titulo, data, autor, genero);
           } catch(Exception e){
             System.out.println("[Erro]" + e.getMessage());
+          }*/
+
+          String titulo = perguntador.perguntaTitulo(scanner);
+          Date data = perguntador.perguntaData(scanner);
+          String genero = "N/A";
+
+// Pergunta se quer inserir gênero na música
+          boolean opcaoGenero = perguntador.perguntaGeneroInserir(scanner);
+          if (opcaoGenero) { // Se escolher inserir gênero
+            genero = perguntador.perguntaGenero(scanner);
+
+            /*// Verifica se o gênero existe, se não, insere
+            if (!app.procuraGenero(genero)) {
+              app.criarGenero(genero); // Método para inserir o gênero na tabela
+            }*/
           }
+
+          String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
+          String nomeAlbum = "";
+          long posicaoAlbum = -1; // Inicializa a posição como -1 para verificação posterior
+
+          if (inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
+            nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
+
+            // Caso o álbum não exista, é criado
+            if (!app.procuraAlbum(nomeAlbum)) {
+              app.criarAlbum(nomeAlbum);
+            }
+            posicaoAlbum = perguntador.posicaoAlbum(scanner); // Captura a posição do álbum
+          }
+
+          String autor = perguntador.perguntaAutor(scanner);
+
+          if (!app.procuraAutor(autor)) {
+            System.out.print("\nO autor não existe. Será criado");
+            app.criarAutor(autor);
+          }
+
+          try {
+            // Insere a música e captura o ID da música inserida
+             app.inserirMusica(titulo, data, autor, genero);
+
+            long musicaId = app.obterUltimoIdMusica(); // Busca o último ID inserido
+            if (musicaId != -1) {
+              if (inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
+                long albumId = app.procuraAlbumId(nomeAlbum);
+                app.inserirMusicaAlbum(musicaId, albumId, posicaoAlbum);
+              }
+            } else {
+              System.out.println("Não foi possível obter o ID da música.");
+            }
+          } catch (Exception e) {
+            System.out.println("[Erro] " + e.getMessage());
+          }
+
+
           break;
         case "2":
           try {
