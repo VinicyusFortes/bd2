@@ -16,7 +16,7 @@ public class Menu {
       System.out.print("\n2. Alterar título de uma música");
       System.out.print("\n3. Apagar uma música");
       System.out.print("\n4. Ver playlist");
-      System.out.print("\n5. Consultar todas as músicas");
+      System.out.print("\n5. Consulta detalhada de todas as músicas");
       System.out.print("\n6. fechar programa");
       System.out.print("\nEscolha: ");
       String escolha = scanner.nextLine();
