@@ -2,9 +2,7 @@ package aor;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.jar.JarOutputStream;
 
 public class Menu {
   Perguntador perguntador = new Perguntador();
