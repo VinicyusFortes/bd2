@@ -3,9 +3,9 @@ package aor;
 import java.sql.*;
 
 public class App implements AutoCloseable {
-    //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
-//  private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
+  //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
+  //private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
+  private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
 
     private final static String USER = "postgres";
     private final static String PASSWORD = "postgres";
@@ -50,8 +50,9 @@ public class App implements AutoCloseable {
         return false;
     }
 
-    public void criarAutor(String autor) {
-        String queryCriarAutor = "insert into autor (nome_autor) values(?)";
+  //cria um autor na tabela de autor
+  public void criarAutor(String autor)  {
+    String queryCriarAutor = "insert into autor (nome_autor) values(?)";
 
         try (PreparedStatement stmCriarAutor = conn.prepareStatement(queryCriarAutor)) {
             stmCriarAutor.setString(1, autor);
