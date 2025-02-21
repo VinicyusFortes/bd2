@@ -1,11 +1,15 @@
 package aor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.sql.Date;
+import java.time.format.DateTimeParseException;
+
 
 public class Perguntador {
   private final Validador validador = new Validador();
-
+  //titulo musica
   public String perguntaTitulo(Scanner scanner) {
     boolean continuar = false;
     String titulo = "";
@@ -22,13 +26,35 @@ public class Perguntador {
     return titulo;
   }
 
+  //data musica
   public Date perguntaData(Scanner scanner) {
-    System.out.print("\nInforme a data da música (AAAA-MM-DD): ");
-    Date data = Date.valueOf(scanner.nextLine().trim());
+    Date data = null;
+    boolean dataValida = false;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    return data;
+    while (!dataValida) {
+      System.out.print("\nInforme a data da música (AAAA-MM-DD): ");
+      String dataString = scanner.nextLine().trim();
+
+      // Valida e tenta converter a string em LocalDate
+      try {
+        LocalDate localDate = LocalDate.parse(dataString, formatter); // Validação da data
+
+        // A data é válida, então converte para java.sql.Date
+        data = Date.valueOf(localDate); // Converte LocalDate para java.sql.Date
+        dataValida = true; // Data válida, sai do loop
+      } catch (DateTimeParseException e) {
+        System.out.println("Formato inválido! Use o formato AAAA-MM-DD.");
+      } catch (IllegalArgumentException e) {
+        System.out.println("Data inválida! A data deve existir no calendário.");
+      }
+    }
+
+    return data; // Retorna a data como java.sql.Date
   }
 
+
+  //genero musica
   public String perguntaGenero(Scanner scanner) {
     System.out.print("\nOs generos disponíveis sao:");
     System.out.print("\n1 - Clássico");
@@ -53,6 +79,7 @@ public class Perguntador {
     return genero;
   }
 
+  //sim ou nao
   public String perguntaSimNao(Scanner scanner) {
     boolean continuar = false;
     String simNao = "";
@@ -71,22 +98,26 @@ public class Perguntador {
     return simNao;
   }
 
+  //inserir album
   public String perguntaInserirAlbum(Scanner scanner) {
     System.out.print("\nDeseja inserir a música num álbum?");
     String resposta = perguntaSimNao(scanner);
     return resposta;
   }
 
+  //nome autor
   public String perguntaAutor(Scanner scanner) {
     System.out.print("\nInforme o nome do autor: ");
     return scanner.nextLine().trim().toLowerCase();
   }
 
+  //id musica
   public String perguntaIdMusica(Scanner scanner){
     System.out.println("\nInforme o id da música: ");
     return scanner.nextLine().trim().toLowerCase();
   }
 
+  //titulo album
   public String perguntaTituloAlbum(Scanner scanner) {
     boolean continuar = false;
     String titulo = "";
