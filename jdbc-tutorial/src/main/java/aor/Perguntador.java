@@ -15,7 +15,7 @@ public class Perguntador {
     String titulo = "";
     System.out.print("\nInforme o título da música: ");
     while(!continuar) {
-      titulo = scanner.nextLine().trim();
+      titulo = scanner.nextLine().trim().toLowerCase();
       if(!validador.validarTituloMusica(titulo)) {
         System.out.print("\n\tParametro errado. Informe novamente: ");
       }else {
