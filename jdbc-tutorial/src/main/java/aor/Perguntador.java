@@ -140,10 +140,9 @@ public class Perguntador {
         String opcao = perguntaSimNao(scanner);
 
     if (validador.validarSimNao(opcao)) {
-      return true;
-  } else {
-      return false;
+      return opcao.equalsIgnoreCase("sim");
+  } else System.out.println("Resposta inválida. Por favor, responda 'sim' ou 'não'.");
+    return perguntaGeneroInserir(scanner);
     }
 
   }
-}
