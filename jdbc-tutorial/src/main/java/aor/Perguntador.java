@@ -63,9 +63,21 @@ public class Perguntador {
     System.out.print("\n4 - Hip-hop");
     System.out.print("\n5 - Heavy Metal \\m/");
     System.out.print("\n6 - Outros");
-    System.out.print("\nInforme o número do genero da música: ");
-    String g = scanner.nextLine().trim();
+    System.out.print("\nInforme o número referente ao genero da música: ");
+
+
+    boolean continuar = false;
+    String g = "";
     String genero = "";
+
+    while(!continuar) {
+      g = scanner.nextLine().trim().toLowerCase();
+      if(!validador.validaGenero(g)) {
+        System.out.print("\n\tParametro errado. Informe novamente: ");
+      }else {
+        continuar = true;
+      }
+    }
 
     switch(g) {
       case "1": genero = "Clássico"; break;
@@ -83,7 +95,7 @@ public class Perguntador {
   public String perguntaSimNao(Scanner scanner) {
     boolean continuar = false;
     String simNao = "";
-    System.out.print("\nEscolha: ");
+    System.out.print("\nEscolha (sim ou não): ");
     System.out.print("\n1. Sim");
     System.out.print("\n2. Não");
     System.out.print("\nResposta: ");
@@ -101,8 +113,7 @@ public class Perguntador {
   //inserir album
   public String perguntaInserirAlbum(Scanner scanner) {
     System.out.print("\nDeseja inserir a música num álbum?");
-    String resposta = perguntaSimNao(scanner);
-    return resposta;
+    return perguntaSimNao(scanner);
   }
 
   //nome autor

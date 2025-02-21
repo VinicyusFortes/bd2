@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.jar.JarOutputStream;
 
 public class Menu {
   Perguntador perguntador = new Perguntador();
@@ -30,9 +31,9 @@ public class Menu {
           String autor = perguntador.perguntaAutor(scanner);
 
           //todo inserir logica de adicionar a musica a um album
-          /*if(inserirAlbum.equalsIgnoreCase("sim")) {
-
-          }*/
+          if(inserirAlbum.equalsIgnoreCase("sim")) {
+            System.out.println("inserir album");
+          }
 
           if(!app.procuraAutor(autor)) {
             System.out.print("\nO autor nao existe. Será criado");
