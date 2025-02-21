@@ -67,8 +67,6 @@ public class App implements AutoCloseable {
   public boolean procuraAlbum(String nomeAlbum) {
     String queryAlbum = "select titulo_album from album where titulo_album = ?";
 
-    System.out.println("entrei aqui");
-
     try (PreparedStatement stmAlbum = conn.prepareStatement(queryAlbum)) {
       stmAlbum.setString(1, nomeAlbum);
       try (ResultSet rs = stmAlbum.executeQuery()) {
