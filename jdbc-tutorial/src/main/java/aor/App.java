@@ -87,35 +87,110 @@ public class App implements AutoCloseable {
 
 
   //3 - APAGAR MUSICA
+//  public void apagarMusica(int id) throws SQLException {
+//    String queryTitulo = "select titulo_musica from musica where id = ?";
+//    String queryDelete = "Delete from musica where id = ?";
+//    String nomeMusica = "";
+//
+//    try (PreparedStatement stmTitulo = conn.prepareStatement(queryTitulo)) {
+//      stmTitulo.setInt(1, id);
+//
+//      // Executa a consulta e obtém o resultado
+//      try (ResultSet rs = stmTitulo.executeQuery()) {
+//        if (rs.next()) {
+//          // Armazena o título da música retornado pela query
+//          nomeMusica = rs.getString("titulo_musica");
+//        }
+//      }
+//    }
+//
+//    if (nomeMusica != null) {
+//      try (PreparedStatement stm = conn.prepareStatement(queryDelete)) {
+//        stm.setInt(1, id);
+//        int rowsAffected = stm.executeUpdate();
+//        if (rowsAffected > 0) {
+//          System.out.printf("Música '%s' foi apagada a tabela.%n", nomeMusica);
+//        }
+//      }
+//    } else {
+//      System.out.print("Música não registada.");
+//    }
+//  }
+
   public void apagarMusica(int id) throws SQLException {
-    String queryTitulo = "select titulo_musica from musica where id = ?";
-    String queryDelete = "Delete from musica where id = ?";
-    String nomeMusica = "";
+    // Queries SQL atualizadas para corresponder à estrutura do banco de dados
+    String queryMusicaInfo = "SELECT m.titulo_musica, ma.album_id FROM musica m LEFT JOIN musica_album ma ON m.id = ma.musica_id WHERE m.id = ?";
+    String queryDeleteMusicaAlbum = "DELETE FROM musica_album WHERE musica_id = ?";
+    String queryDeleteMusica = "DELETE FROM musica WHERE id = ?";
+    String queryVerificarAlbumVazio = "SELECT COUNT(*) FROM musica_album WHERE album_id = ?";
+    String queryDeleteAlbum = "DELETE FROM album WHERE id = ?";
 
-    try (PreparedStatement stmTitulo = conn.prepareStatement(queryTitulo)) {
-      stmTitulo.setInt(1, id);
+    conn.setAutoCommit(false);
+    try {
+      String nomeMusica = "";
+      Long albumId = null;
 
-      // Executa a consulta e obtém o resultado
-      try (ResultSet rs = stmTitulo.executeQuery()) {
-        if (rs.next()) {
-          // Armazena o título da música retornado pela query
-          nomeMusica = rs.getString("titulo_musica");
+      // Obtém informações da música
+      try (PreparedStatement stmMusicaInfo = conn.prepareStatement(queryMusicaInfo)) {
+        stmMusicaInfo.setInt(1, id);
+        try (ResultSet rs = stmMusicaInfo.executeQuery()) {
+          if (rs.next()) {
+            nomeMusica = rs.getString("titulo_musica");
+            albumId = rs.getLong("album_id");
+
+          }
         }
       }
-    }
 
-    if (nomeMusica != null) {
-      try (PreparedStatement stm = conn.prepareStatement(queryDelete)) {
-        stm.setInt(1, id);
-        int rowsAffected = stm.executeUpdate();
+      if (nomeMusica.isEmpty()) {
+        System.out.println("Música não registrada.");
+        return;
+      }
+
+      // Apaga a música da tabela musica_album
+      try (PreparedStatement stmDeleteMusicaAlbum = conn.prepareStatement(queryDeleteMusicaAlbum)) {
+        stmDeleteMusicaAlbum.setInt(1, id);
+        stmDeleteMusicaAlbum.executeUpdate();
+      }
+
+      // Apaga a música da tabela musica
+      try (PreparedStatement stmDeleteMusica = conn.prepareStatement(queryDeleteMusica)) {
+        stmDeleteMusica.setInt(1, id);
+        int rowsAffected = stmDeleteMusica.executeUpdate();
         if (rowsAffected > 0) {
-          System.out.printf("Música '%s' foi apagada a tabela.%n", nomeMusica);
+          System.out.printf("Música '%s' foi apagada da tabela.%n", nomeMusica);
         }
       }
-    } else {
-      System.out.print("Música não registada.");
+
+      // Verifica se o álbum está vazio e apaga se necessário
+      if (albumId != null) {
+        try (PreparedStatement stmVerificarAlbumVazio = conn.prepareStatement(queryVerificarAlbumVazio)) {
+          stmVerificarAlbumVazio.setLong(1, albumId);
+          try (ResultSet rs = stmVerificarAlbumVazio.executeQuery()) {
+            if (rs.next() && rs.getLong(1) == 0) {
+              try (PreparedStatement stmDeleteAlbum = conn.prepareStatement(queryDeleteAlbum)) {
+                stmDeleteAlbum.setLong(1, albumId);
+                int albumRowsAffected = stmDeleteAlbum.executeUpdate();
+                if (albumRowsAffected > 0) {
+                  System.out.println("Álbum vazio foi apagado.");
+                }
+              }
+            }
+          }
+        }
+      }
+
+      conn.commit();
+    } catch (SQLException e) {
+      conn.rollback();
+      throw e;
+    } finally {
+      conn.setAutoCommit(true);
     }
   }
+
+
+
 
   //4 - VER PLAYLIST
   public void verPlaylist() {
