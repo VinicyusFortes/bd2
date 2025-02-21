@@ -15,9 +15,4 @@ public class Validador {
     String requisitoSimNao = "^(sim|n[ãa]o|[12])$";
     return simNao.matches(requisitoSimNao);
   }
-
-  public boolean validaGenero(String genero) {
-  String requisitoGenero = "^[1-6]$";
-  return genero.matches(requisitoGenero);
-  }
 }

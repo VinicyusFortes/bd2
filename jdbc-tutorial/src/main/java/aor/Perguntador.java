@@ -15,7 +15,7 @@ public class Perguntador {
     String titulo = "";
     System.out.print("\nInforme o título da música: ");
     while(!continuar) {
-      titulo = scanner.nextLine().trim();
+      titulo = scanner.nextLine().trim().toLowerCase();
       if(!validador.validarTituloMusica(titulo)) {
         System.out.print("\n\tParametro errado. Informe novamente: ");
       }else {
@@ -63,21 +63,9 @@ public class Perguntador {
     System.out.print("\n4 - Hip-hop");
     System.out.print("\n5 - Heavy Metal \\m/");
     System.out.print("\n6 - Outros");
-    System.out.print("\nInforme o número referente ao genero da música: ");
-
-
-    boolean continuar = false;
-    String g = "";
+    System.out.print("\nInforme o número do genero da música: ");
+    String g = scanner.nextLine().trim();
     String genero = "";
-
-    while(!continuar) {
-      g = scanner.nextLine().trim().toLowerCase();
-      if(!validador.validaGenero(g)) {
-        System.out.print("\n\tParametro errado. Informe novamente: ");
-      }else {
-        continuar = true;
-      }
-    }
 
     switch(g) {
       case "1": genero = "Clássico"; break;
@@ -95,7 +83,7 @@ public class Perguntador {
   public String perguntaSimNao(Scanner scanner) {
     boolean continuar = false;
     String simNao = "";
-    System.out.print("\nEscolha (sim ou não): ");
+    System.out.print("\nEscolha: ");
     System.out.print("\n1. Sim");
     System.out.print("\n2. Não");
     System.out.print("\nResposta: ");
@@ -113,7 +101,8 @@ public class Perguntador {
   //inserir album
   public String perguntaInserirAlbum(Scanner scanner) {
     System.out.print("\nDeseja inserir a música num álbum?");
-    return perguntaSimNao(scanner);
+    String resposta = perguntaSimNao(scanner);
+    return resposta;
   }
 
   //nome autor
@@ -151,10 +140,9 @@ public class Perguntador {
         String opcao = perguntaSimNao(scanner);
 
     if (validador.validarSimNao(opcao)) {
-      return true;
-  } else {
-      return false;
+      return opcao.equalsIgnoreCase("sim");
+  } else System.out.println("Resposta inválida. Por favor, responda 'sim' ou 'não'.");
+    return perguntaGeneroInserir(scanner);
     }
 
   }
-}
