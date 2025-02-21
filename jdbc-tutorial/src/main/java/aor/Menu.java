@@ -1,12 +1,13 @@
 package aor;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
   Perguntador perguntador = new Perguntador();
 
-  public void menu(App app, Scanner scanner) {
+  public void menu(App app, Scanner scanner) throws SQLException {
     boolean continuar = true;
     while(continuar) {
       System.out.print("\nEscolha uma das opcoes: ");
@@ -44,14 +45,22 @@ public class Menu {
           }
           break;
         case "2":
-          app.alterarTitulo();
+          try {
+            app.consultaMusica();
+          } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+          }
+          String idTemp = perguntador.perguntaIdMusica(scanner);
+          int idMusicaAlterar = Integer.parseInt(idTemp);
+          String tituloMusica = perguntador.perguntaTitulo(scanner);
+          app.alterarTitulo(idMusicaAlterar, tituloMusica);
           break;
         case "3":
           try {
             System.out.print("\nInforme o id da música: ");
             String ids = scanner.nextLine();
-            int id = Integer.parseInt(ids);
-            app.apagarMusica(id);
+            int idMusicaApagar = Integer.parseInt(ids);
+            app.apagarMusica(idMusicaApagar);
           } catch(Exception e) {
             System.out.println("[Erro]" + e.getMessage());
           }

@@ -64,7 +64,7 @@ public class App implements AutoCloseable {
     }
 
     //2 - CORRIGIR TITULO DE UMA MUSICA
-    public void alterarTitulo(int id, String titulo) throws SQLException {
+    public void alterarTitulo(int id, String titulo) {
 // TODO Terminar código deste método
       String query = "UPDATE musica SET titulo_musica = ? WHERE id = ?";
 
@@ -129,7 +129,7 @@ public class App implements AutoCloseable {
             try (PreparedStatement stm = conn.prepareStatement(query)) {
                 try (ResultSet rs1 = stm.executeQuery()) {
                     System.out.print("\nAs músicas atualmente registadas são: ");
-                    System.out.print("\nID - TÍTULO - DATA - GENERO MUSICAL\n");
+                    System.out.print("\nID - TÍTULO - DATA - GENERO MUSICAL - AUTOR\n");
                     while (rs1.next()) {
                         System.out.println("ID: " + rs1.getString("id") +
                                 " | Titulo: " + rs1.getString("titulo_musica") +
