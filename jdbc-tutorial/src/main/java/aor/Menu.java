@@ -44,7 +44,7 @@ public class Menu {
           }
           break;
         case "2":
-          app.alterarTitulo(2);
+          app.alterarTitulo();
           break;
         case "3":
           try {

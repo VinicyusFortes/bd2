@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class App implements AutoCloseable {
   //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
-  private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
-//  private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
+  //private final static String URL = "jdbc:postgresql://localhost:5432/postgres";
+  private final static String URL = "jdbc:postgresql://localhost:5433/postgres";
 
   private final static String USER = "postgres";
   private final static String PASSWORD = "postgres";
@@ -64,7 +64,7 @@ public class App implements AutoCloseable {
   }
 
   //2 - CORRIGIR TITULO DE UMA MUSICA
-  public void alterarTitulo(int id) throws SQLException {
+  public void alterarTitulo()  {
 // TODO Terminar código deste método
 
   }
