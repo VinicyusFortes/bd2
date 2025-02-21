@@ -36,11 +36,16 @@ public class Menu {
 
           //todo inserir album
           String inserirAlbum = perguntador.perguntaInserirAlbum(scanner);
-          System.out.println(inserirAlbum);
 
           //todo inserir logica de adicionar a musica a um album
           if(inserirAlbum.equalsIgnoreCase("sim") || inserirAlbum.equalsIgnoreCase("1")) {
             String nomeAlbum = perguntador.perguntaTituloAlbum(scanner);
+
+            //verifica se o album já existe
+
+            if(!app.procuraAlbum(nomeAlbum)) {
+              app.criarAlbum(nomeAlbum);
+            }
 
             //todo: se o album nao existir deverá ser criado
 

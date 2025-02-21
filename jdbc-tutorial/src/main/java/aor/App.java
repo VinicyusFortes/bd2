@@ -1,7 +1,6 @@
 package aor;
 
 import java.sql.*;
-import java.time.LocalDate;
 
 public class App implements AutoCloseable {
   //caminho do filipe(caso faca algum pull terei que trocar para a porta 5432
@@ -59,6 +58,34 @@ public class App implements AutoCloseable {
       stmCriarAutor.setString(1, autor);
       stmCriarAutor.executeUpdate();
       System.out.println("\nAutor: " + autor + " foi criado");
+    } catch (Exception e) {
+      System.out.println("Erro: " + e.getMessage());
+    }
+  }
+
+  //retorna true caso o album já exista
+  public boolean procuraAlbum(String nomeAlbum) {
+    String queryAlbum = "select titulo_album from album where titulo_album = ?";
+
+    try (PreparedStatement stmAlbum = conn.prepareStatement(queryAlbum)) {
+      stmAlbum.setString(1, nomeAlbum);
+      try (ResultSet rs = stmAlbum.executeQuery()) {
+        return rs.next();
+      }
+    } catch (Exception e) {
+      System.out.println("Erro: " + e.getMessage());
+    }
+    return false;
+  }
+
+  //cria um album na tabela de autor
+  public void criarAlbum(String nomeAlbum) {
+    String queryCriarAutor = "insert into album (titulo_album) values(?)";
+
+    try (PreparedStatement stmCriarAutor = conn.prepareStatement(queryCriarAutor)) {
+      stmCriarAutor.setString(1, nomeAlbum);
+      stmCriarAutor.executeUpdate();
+      System.out.println("\nAlbum: " + nomeAlbum + " foi criado");
     } catch (Exception e) {
       System.out.println("Erro: " + e.getMessage());
     }
